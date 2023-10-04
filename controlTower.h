@@ -1,22 +1,36 @@
+/*
+ * Juan Diego Collazos
+ * Oscar Vargas Pabon
+ *
+ * Proyecto POO
+octubre 4 2023
+ */
+
 #ifndef CONTROL_TOWER_H
 #define CONTROL_TOWER_H
 
 #include <iostream>
-#include <vector>
+#include <set>
+#include "flight.h"
+#include "message.h"
 
 class ControlTower {
 private:
-    //vector<>
-    ControlTower();
+  static ControlTower* instance;
+  std::set<Flight*> flights;
+  ControlTower();
 public:
-    static ControlTower& getInstance() {
-        static ControlTower instance;
-        return instance;
-    }
+  static ControlTower* getInstance();
 
-    void showMessage() {
-        std::cout << "¡Hola desde la instancia ControlTower!" << std::endl;
-    }
+  void addFlight( Flight * );
+  void deleteFlight( Flight * );
+
+  void notifyFlights( Message* );
+  
+  void showMessage();
+  
 };
+
+ControlTower* ControlTower::instance = NULL;
 
 #endif
