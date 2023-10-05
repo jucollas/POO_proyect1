@@ -13,7 +13,7 @@ private:
     
 public:
     /*builders*/
-    Jet(string& N_number, string& brand, string& model, string& yearProduction, string& status, int abilityPass, int speedMax, int autonomy);
+    Jet(Aircraft* aircraft, Person* owner);
     ~Jet();
 
     /*gets*/

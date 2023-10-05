@@ -11,7 +11,7 @@ private:
     
 public:
     /*builders*/
-    Helicopter(string& N_number, string& brand, string& model, string& yearProduction, string& status, int abilityPass, int speedMax, int autonomy, int nRotors, int liftingCapacity, string& specificUse);
+    Helicopter(Aircraft* Aircraft, int nRotors, int liftingCapacity, string& specificUse);
     ~Helicopter();
 
     /*gets*/

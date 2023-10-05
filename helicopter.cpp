@@ -1,6 +1,6 @@
 #include "helicopter.h"
 
-Helicopter::Helicopter(string& N_number, string& brand, string& model, string& yearProduction, string& status, int abilityPass, int speedMax, int autonomy, int nRotors, int liftingCapacity, string& specificUse) : Aircraft(N_number, brand, model, yearProduction, status, abilityPass, speedMax, autonomy), nRotors(nRotors), liftingCapacity(liftingCapacity), specificUse(specificUse) {}
+Helicopter::Helicopter(Aircraft* aircraft, int nRotors, int liftingCapacity, string& specificUse) : Aircraft(*aircraft), nRotors(nRotors), liftingCapacity(liftingCapacity), specificUse(specificUse) {}
 
 int Helicopter::getNRotors(){
     return nRotors;
