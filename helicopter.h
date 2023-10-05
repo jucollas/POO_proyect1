@@ -12,7 +12,7 @@ private:
 public:
     /*builders*/
     Helicopter(Aircraft* Aircraft, int nRotors, int liftingCapacity, string& specificUse);
-    ~Helicopter();
+    //~Helicopter();
 
     /*gets*/
     int getNRotors();

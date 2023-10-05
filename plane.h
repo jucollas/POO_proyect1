@@ -12,7 +12,7 @@ private:
 public:
     /*builders*/
     Plane(Aircraft* aircraft, int heightMax, int nEngines, string& category);
-    ~Plane();
+    //~Plane();
 
     /*gets*/
     int getHeightMax();

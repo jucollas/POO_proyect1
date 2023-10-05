@@ -4,46 +4,46 @@
 #include "aircraftFactory.h"
 #include "jet.h"
 
+using namespace std;
+
 class JetFactory : public AircraftFactory {
 public:
     Aircraft* crearAeronave() override {
         string cedula, name, surname, birthDate, genre, address, phoneNumber, email, aux;
-        int n;
 
         cout << "----- JET -----" << endl;
         Aircraft* aircraft = AircraftFactory::crearAeronave();
 
-        cout << "| Ingrese informacion de Dueño | " << endl;
-        string cedula, name, surname, birthDate, genre, address, phoneNumber, email;
-        cout << "Ingrese la cédula: ";
+        cout << "| Informacion de Dueno | " << endl;
+        cout << "Cedula: ";
         cin >> cedula;
-        cout << "Ingrese el nombre: ";
+        cout << "Nombre: ";
         cin >> name;
-        cout << "Ingrese el apellido: ";
+        cout << "Apellido: ";
         cin >> surname;
-        cout << "Ingrese la fecha de nacimiento: ";
+        cout << "Fecha de nacimiento: ";
         cin >> birthDate;
-        cout << "Ingrese el género: ";
+        cout << "Genero: ";
         cin >> genre;
-        cout << "Ingrese la dirección: ";
+        cout << "Direccion: ";
         cin >> address;
-        cout << "Ingrese el número de teléfono: ";
+        cout << "Telefono: ";
         cin >> phoneNumber;
-        cout << "Ingrese el correo electrónico: ";
+        cout << "Correo electronico: ";
         cin >> email;
 
         Person* owner = new Person(cedula, name, surname, birthDate, genre, address, phoneNumber, email);
 
         Jet* jet = new Jet(aircraft, owner);
 
-        cout << "| Ingrese informacion de Servicios | " << endl;
+        cout << "| Informacion de Servicios | " << endl;
         cout << "Ingrese los servicios prestados (separados por espacio o por enter, se detiene con el caracter '#') : " << endl;
         cin.ignore();
         while(cin >> aux && aux != "#"){
             jet->addServices(aux);
         }
 
-        cout << "| Ingrese informacion de destinos frecuentes | " << endl;
+        cout << "| Informacion de destinos frecuentes | " << endl;
         cout << "Ingrese los destinos frecuentes (separados por espacio o por enter, se detiene con el caracter '#') : " << endl;
         while(cin >> aux && aux != "#"){
             jet->addDestination(aux);

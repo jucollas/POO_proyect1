@@ -20,7 +20,7 @@ private:
 public:
     /*builders*/
     Aircraft(const string& N_number, const string& brand, const string& model, const string& yearProduction, const string& status, int abilityPass, int speedMax, int autonomy);
-    ~Aircraft();
+    //~Aircraft();
 
     /*gets*/
     string getN_number();

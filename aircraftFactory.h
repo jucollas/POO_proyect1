@@ -10,33 +10,39 @@ public:
     virtual Aircraft* crearAeronave(){
         string n_number, brand, model, yearProduction, status;
         int abilityPass, speedMax, autonomy;
+        int option;
 
         cin.ignore();
-        cout << "Ingrese el número de registro: ";
+        cout << " - Por favor ingrese la informacion requerida." << endl;
+        cout << "| Informacion General (aeronave) |" << endl;
+        cout << "Numero de registro: ";
         getline(cin, n_number);
 
-        cout << "Ingrese la marca: ";
+        cout << "Marca: ";
         getline(cin, brand);
 
-        cout << "Ingrese el modelo: ";
+        cout << "Modelo: ";
         getline(cin, model);
 
-        cout << "Ingrese el año de producción: ";
+        cout << "Ano de produccion: ";
         cin >> yearProduction;
 
-        cout << "Ingrese el estado: ";
-        cin >> status;
-
-        cout << "Ingrese la capacidad de pasajeros: ";
+        cout << "Estado ([1] en servicio, [2] mantenimiento): ";
+        cin >> option;
+        if(option == 1)
+            status = "In service";
+        else if(option == 2)
+            status = "maintenance";
+        
+        cout << "Capacidad de pasajeros: ";
         cin >> abilityPass;
 
-        cout << "Ingrese la velocidad máxima (en mph): ";
+        cout << "Velocidad maxima (en mph): ";
         cin >> speedMax;
 
-        cout << "Ingrese la autonomía (en millas): ";
+        cout << "Autonomia (en millas): ";
         cin >> autonomy;
 
-        // Crear una instancia de Aircraft con la información proporcionada por el usuario
         Aircraft* aircraft = new Aircraft(n_number, brand, model, yearProduction, status, abilityPass, speedMax, autonomy);
         return aircraft;
     }

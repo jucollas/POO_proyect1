@@ -13,13 +13,13 @@ public:
         cout << "----- HELICOPTER -----" << endl;
         Aircraft* aircraft = AircraftFactory::crearAeronave();
 
-        cout << "Ingrese el número de rotores: ";
+        cout << "Numero de rotores: ";
         cin >> nRotors;
 
-        cout << "Ingrese la capacidad de elevación (en libras): ";
+        cout << "Capacidad de elevacion (en libras): ";
         cin >> liftingCapacity;
 
-        cout << "Ingrese el uso específico: ";
+        cout << "Uso especifico: ";
         cin.ignore(); // Limpiar el buffer del teclado
         getline(cin, specificUse);
 

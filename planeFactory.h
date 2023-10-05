@@ -13,11 +13,11 @@ public:
         cout << "----- PLANE -----" << endl;
         Aircraft* aircraft = AircraftFactory::crearAeronave();
 
-        cout << "Ingrese la altura máxima del avión (en pies): ";
+        cout << "Altura maxima (en pies): ";
         cin >> heightMax;
-        cout << "Ingrese el número de motores del avión: ";
+        cout << "Numero de motores: ";
         cin >> nEngines;
-        cout << "Ingrese la categoría del avión: ";
+        cout << "Categoria: ";
         cin >> category;
 
         Plane* plane = new Plane(aircraft, heightMax, nEngines, category);

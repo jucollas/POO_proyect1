@@ -14,7 +14,7 @@ private:
 public:
     /*builders*/
     Jet(Aircraft* aircraft, Person* owner);
-    ~Jet();
+    //~Jet();
 
     /*gets*/
     Person* getOwner();
