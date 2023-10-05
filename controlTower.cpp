@@ -39,10 +39,3 @@ void ControlTower::showMessage() {
   std::cout << "¡Hola desde la instancia ControlTower!" << std::endl;
 }
 
-int main(){
-  ControlTower *a = ControlTower::getInstance();
-  ControlTower *b = ControlTower::getInstance();
-  a->showMessage();
-  std::cout << (a == b) << std::endl;
-  return 0;
-}
