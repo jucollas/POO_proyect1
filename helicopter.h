@@ -3,7 +3,7 @@
 
 #include "aircraft.h"
 
-class Helicopter : private Aircraft{
+class Helicopter : public Aircraft{
 private:
     int nRotors;
     int liftingCapacity;
