@@ -8,8 +8,10 @@ octubre 4 2023
 
 #include "controlTower.h"
 
+ControlTower* ControlTower::instance = NULL;
+
 ControlTower::ControlTower(){
-  
+  std::cout << "alo alo" << std::endl;
 }
 
 ControlTower* ControlTower::getInstance(){
@@ -19,16 +21,16 @@ ControlTower* ControlTower::getInstance(){
   return ControlTower::instance;
 }
 
-void addFlight( Flight *f ){
-  flights.insert( f );
+void ControlTower::addFlight( Flight *f ){
+  this->flights.insert( f );
 }
 
-void deleteFlight( Flight *f ){
-  flights.erase( f );
+void ControlTower::deleteFlight( Flight *f ){
+  this->flights.erase( f );
 }
 
-void notifyFlight( Message* m ){
-  for ( std::set<Flight*>::iterator it = flights.begin() ; it != flights.end() ; ++it ) {
+void ControlTower::notifyFlights( Message* m ){
+  for ( std::set<Flight*>::iterator it = this->flights.begin() ; it != this->flights.end() ; ++it ) {
     (*it)->receiveMessage( m );
   }
 }

@@ -9,6 +9,8 @@ octubre 4 2023
 #ifndef FLIGHT_H
 #define FLIGHT_H
 
+class Flight;
+
 #include <list>
 #include <string>
 #include <iostream>
@@ -25,10 +27,11 @@ private:
   ControlTower *control;
   std::list<Passenger*> passengers;
   std::list<Crew*> crewMates;
-  std::string codigo;
-  // otras maridasasfas
+  std::string flightCode, date, origin, destiny;
+  int height;
+  double latitude, longitude;
 public:
-  Flight();
+  Flight( Aircraft *, ControlTower *, const std::list<Passenger*> &, std::list<Crew*> &, const std::string &, const std::string &, const std::string &, const std::string &, double, double, int );
 
   void sendFlightInformation();
   void receiveMessage( Message * );

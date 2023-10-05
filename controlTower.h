@@ -9,6 +9,8 @@ octubre 4 2023
 #ifndef CONTROL_TOWER_H
 #define CONTROL_TOWER_H
 
+class ControlTower;
+
 #include <iostream>
 #include <set>
 #include "flight.h"
@@ -30,7 +32,5 @@ public:
   void showMessage();
   
 };
-
-ControlTower* ControlTower::instance = NULL;
 
 #endif

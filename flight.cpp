@@ -8,6 +8,8 @@ octubre 4 2023
 
 #include "flight.h"
 
+Flight::Flight( Aircraft *aircraft, ControlTower *control, const std::list<Passenger*> &passengers, std::list<Crew*> &crewMates, const std::string &flightCode, const std::string &date, const std::string &origin, const std::string &destiny, double latitude, double longitude, int height ) : aircraft(aircraft), control(control), passengers(passengers), crewMates(crewMates), flightCode(flightCode), date(date), origin(origin), destiny(destiny), longitude(longitude), latitude(latitude), height(height) {};
+
 void Flight::sendFlightInformation(){
   Message *m = new Message( 1.0,2.1, 10, "avion1" );
   control->notifyFlights( m );
@@ -19,6 +21,6 @@ void Flight::receiveMessage( Message *m ){
   }
 
 bool Flight::operator< ( const Flight &f ) const{
-  bool res = this->codigo < f.codigo;
+  bool res = this->flightCode < f.flightCode;
   return res;
 }
