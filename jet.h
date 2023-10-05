@@ -17,17 +17,15 @@ public:
     ~Jet();
 
     /*gets*/
-    Person* getOwer();
+    Person* getOwner();
     /*sets*/
-    void setOwer(Person*);
+    void setOwner(Person*);
 
     /*functions*/
     void addServices(string&);
     void delServices(int);
     void addDestination(string&);
     void delDestination(int);
-    void setLiftingCapacity(int);
-    void getSpecificUse(string&);
     void delAllServices();
     void delAllDestination();
 
