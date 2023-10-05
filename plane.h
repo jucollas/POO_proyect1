@@ -1,10 +1,7 @@
 #ifndef PLANE_H
 #define PLANE_H
 
-#include <string>
 #include "aircraft.h"
-
-using namespace std;
 
 class Plane : private Aircraft{
 private:
