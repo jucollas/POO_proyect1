@@ -5,7 +5,7 @@
 #include "aircraft.h"
 #include "person.h"
 
-class Jet : private Aircraft{
+class Jet : public Aircraft{
 private:
     Person* owner;
     list<string> services;
@@ -33,8 +33,6 @@ public:
     void printgetFrequentDestinations();
 
     void printInfo() override;
-
-    
 };
 
 #endif

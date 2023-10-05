@@ -3,7 +3,7 @@
 
 #include "aircraft.h"
 
-class Plane : private Aircraft{
+class Plane : public Aircraft{
 private:
     int heightMax;
     int nEngines;
