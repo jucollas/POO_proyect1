@@ -1,2 +1,3 @@
 @echo off
-del aircraft.o
+del *.o
+echo on
