@@ -24,3 +24,11 @@ void Plane::getNEngines(int nEngines){
 void Plane::getCategory(string& category){
     this->category = category;
 }
+
+void Plane::printInfo(){
+    cout << "----- PLANE -----" << endl;
+    Aircraft::printInfo();
+    cout << "Height Max: " << getHeightMax() << endl;
+    cout << "N Engines: " << getNEngines() << endl;
+    cout << "Categoty: " << getCategory() << endl;
+}

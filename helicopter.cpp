@@ -25,3 +25,11 @@ void Helicopter::setLiftingCapacity(int liftingCapacity){
 void Helicopter::setSpecificUse(string& specificUse){
     this->specificUse = specificUse;
 }
+
+void Helicopter::printInfo(){
+    cout << "----- HELICOPTER -----" << endl;
+    Aircraft::printInfo();
+    cout << "N Rotors: " << getNRotors() << endl;
+    cout << "Lifting Capacity: " << getLiftingCapacity() << endl;
+    cout << "Specific Use: " << getSpecificUse() << endl;
+}

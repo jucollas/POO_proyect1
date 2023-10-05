@@ -24,6 +24,8 @@ public:
     void setLiftingCapacity(int);
     void setSpecificUse(string&);
     /*functions*/
+    void printInfo() override;
+
 };
 
 #endif
