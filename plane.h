@@ -11,7 +11,7 @@ private:
     
 public:
     /*builders*/
-    Plane(string& N_number, string& brand, string& model, string& yearProduction, string& status, int abilityPass, int speedMax, int autonomy, int heightMax, int nEngines, string& category);
+    Plane(Aircraft* aircraft, int heightMax, int nEngines, string& category);
     ~Plane();
 
     /*gets*/
