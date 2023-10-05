@@ -60,3 +60,14 @@ void Aircraft::setSpeedMax(int speedMax){
 void Aircraft::setAutonomy(int autonomy){
     this->autonomy = autonomy;
 }
+
+void Aircraft::printInfo() {
+    cout << "N Number: " << getN_number() << endl;
+    cout << "Brand: " << getBrand() << endl;
+    cout << "Model: " << getModel() << endl;
+    cout << "Year of Production: " << getYearProduction() << endl;
+    cout << "Status: " << getStatus() << endl;
+    cout << "Ability to Passengers: " << getAbilityPass() << endl;
+    cout << "Maximum Speed: " << getSpeedMax() << endl;
+    cout << "Autonomy: " << getAutonomy() << endl;
+}

@@ -39,9 +39,14 @@ void Jet::delAllDestination(){
     frequentDestinations.clear();
 }
 
-/*void Jet::printServices(){
+void Jet::printInfo(){
     list<string>::iterator it;
-    for(it = services.begin())
+    cout << "----- JET -----" << endl;
+    Aircraft::printInfo();
+    cout << "Services:" << endl;
+    for(it = services.begin(); it != services.end(); ++it)
+        cout << "  - " << *it << endl;
+    cout << "Frequent Destinations:" << endl;
+    for(it = frequentDestinations.begin(); it != frequentDestinations.end(); ++it)
+        cout << "  - " << *it << endl;
 }
-void Jet::printgetFrequentDestinations();*/
-

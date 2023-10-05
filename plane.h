@@ -25,6 +25,7 @@ public:
     void getCategory(string&);
 
     /*functions*/
+    void printInfo() override;
 };
 
 #endif

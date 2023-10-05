@@ -2,6 +2,7 @@
 #define AIRCRAFT_H
 
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -41,6 +42,7 @@ public:
     void setAutonomy(int);
 
     /*functions*/
+    virtual void printInfo();
 };
 
 #endif
