@@ -1,5 +1,5 @@
-#ifndef PLANE_H
-#define PLANE_H
+#ifndef FACTORY_HELICOPTER_H
+#define FACTORY_HELICOPTER_H
 
 #include "aircraftFactory.h"
 #include "helicopter.h"
