@@ -56,3 +56,11 @@ void Person::setPhoneNumber( const std::string &phoneNumber ){
 void Person::setEmail( const std::string &email ){
 	this->email = email;
 }
+
+/*
+####################### information ############################
+*/
+
+void Person::info(){
+	std::cout << name << " " << surname << "[" << cedula << "]";
+}

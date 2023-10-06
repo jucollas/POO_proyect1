@@ -34,3 +34,11 @@ void Passenger::setMedicalInfo( const std::string &medicalInfo ){
 	this->medicalInfo = medicalInfo;
 }
 
+/*
+####################### Information ############################
+*/
+
+void Passenger::info(){
+	Person::info();
+	std::cout << ".Medical information: " << this->medicalInfo << ".";
+}

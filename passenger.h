@@ -30,6 +30,9 @@ public:
 
 	void setMedicalInfo( const std::string & );
 
+	/* info */
+
+	void info() override;
 };
 
 #endif //PASSENGER_H

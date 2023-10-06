@@ -30,6 +30,10 @@ public:
 	void setDailyWorkingHours( int );
 	void anotherYearsExperience();
 
+	/* info */
+
+	void info() override;
+
 };
 
 #endif //CREW_H

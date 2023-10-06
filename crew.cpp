@@ -40,3 +40,11 @@ void Crew::setDailyWorkingHours( int dailyWorkingHours ){
 void Crew::anotherYearsExperience(){
 	++this->yearsExperience;
 }
+
+/*
+####################### Information ############################
+*/
+void Crew::info(){
+	Person::info();
+	std::cout << ".Position: " << this->jobPosition;
+}

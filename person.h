@@ -10,6 +10,7 @@
 #define PERSON_H
 
 #include <string>
+#include <iostream>
 
 class Person {
 protected:
@@ -33,6 +34,10 @@ public:
 	void setAddress( const std::string & );
 	void setPhoneNumber( const std::string & );
 	void setEmail( const std::string & );
+
+	/* informacion */
+
+	virtual void info();
 
 };
 
