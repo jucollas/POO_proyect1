@@ -35,8 +35,18 @@ public:
 
   void sendFlightInformation();
   void receiveMessage( Message * );
+
+  std::string getFlightCode();
+  std::string getDate();
+  std::string getOrigin();
+  std::string getDestiny();
+  Aircraft *getAircraft();
+  std::list<Passenger*> getPassengers();
+  std::list<Crew*> getCrewMates();
   
   bool operator < ( const Flight & ) const;
+
+  void info();
 };
 
 #endif //FLIGHT_H

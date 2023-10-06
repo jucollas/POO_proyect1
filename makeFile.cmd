@@ -14,7 +14,8 @@ g++ -c aircraftFactory.cpp
 g++ -c helicopterFactory.cpp
 g++ -c planeFactory.cpp
 g++ -c jetFactory.cpp
+g++ -c boardingGate.cpp
 
 
-g++ aircraft.o plane.o jet.o helicopter.o person.o crew.o passenger.o controlTower.o flight.o message.o flightBuilder.o aircraftFactory.o helicopterFactory.o planeFactory.o jetFactory.o main.cpp -o airport
+g++ aircraft.o plane.o jet.o helicopter.o person.o crew.o passenger.o controlTower.o flight.o message.o flightBuilder.o aircraftFactory.o helicopterFactory.o planeFactory.o jetFactory.o boardingGate.o main.cpp -o airport
 echo on
