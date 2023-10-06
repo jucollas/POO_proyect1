@@ -11,7 +11,7 @@ octubre 4 2023
 ControlTower* ControlTower::instance = NULL;
 
 ControlTower::ControlTower(){
-  std::cout << "alo alo" << std::endl;
+  this->gateControl = new GateControl();
 }
 
 ControlTower* ControlTower::getInstance(){
@@ -33,6 +33,16 @@ void ControlTower::notifyFlights( Message* m ){
   for ( std::set<Flight*>::iterator it = this->flights.begin() ; it != this->flights.end() ; ++it ) {
     (*it)->receiveMessage( m );
   }
+}
+
+std::string ControlTower::bookBoardingGate( Flight *f ){
+  std::string res;
+  res = this->gateControl->bookBoardingGate( f );
+  return res;
+}
+
+void ControlTower::freeBoardingGate( const std::string &gateId ){
+  this->gateControl->freeBoardingGate( gateId );
 }
 
 void ControlTower::showMessage() {

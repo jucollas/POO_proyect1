@@ -15,11 +15,13 @@ class ControlTower;
 #include <set>
 #include "flight.h"
 #include "message.h"
+#include "gateControl.h"
 
 class ControlTower {
 private:
   static ControlTower* instance;
   std::set<Flight*> flights;
+  GateControl *gateControl;
   ControlTower();
 public:
   static ControlTower* getInstance();
@@ -28,6 +30,9 @@ public:
   void deleteFlight( Flight * );
 
   void notifyFlights( Message* );
+
+  std::string bookBoardingGate( Flight * );
+  void freeBoardingGate( const std::string & );
   
   void showMessage();
   

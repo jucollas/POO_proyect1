@@ -30,12 +30,23 @@ private:
   std::string flightCode, date, origin, destiny;
   int height;
   double latitude, longitude;
+  bool activeFlight;
+  std::string gateId;
 public:
   Flight( Aircraft *, ControlTower *, const std::list<Passenger*> &, std::list<Crew*> &, const std::string &, const std::string &, const std::string &, const std::string &, double, double, int );
 
   void sendFlightInformation();
   void receiveMessage( Message * );
 
+  void land();
+  void takeOff();
+  bool activateFlight( bool );
+  bool endFlight();
+  
+  bool isActive();
+  bool isInAir();
+  
+  std::string getGateId();
   std::string getFlightCode();
   std::string getDate();
   std::string getOrigin();
