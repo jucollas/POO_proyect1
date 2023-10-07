@@ -45,6 +45,9 @@ public:
   
   bool isActive();
   bool isInAir();
+  bool hasAvailableSeats();
+
+  bool bookSeat( Passenger * );
   
   std::string getGateId();
   std::string getFlightCode();
@@ -54,6 +57,7 @@ public:
   Aircraft *getAircraft();
   std::list<Passenger*> getPassengers();
   std::list<Crew*> getCrewMates();
+  int getBookedSeats();
   
   bool operator < ( const Flight & ) const;
 

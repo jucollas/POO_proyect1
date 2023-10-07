@@ -9,6 +9,8 @@
 #ifndef BOARDING_GATE_H
 #define BOARDING_GATE_H
 
+class BoardingGate;
+
 #include <string>
 #include <list>
 #include <iostream>

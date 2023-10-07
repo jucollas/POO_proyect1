@@ -116,6 +116,24 @@ bool Flight::isInAir(){
   return this->gateId == "";
 }
 
+bool Flight::hasAvailableSeats(){
+  return this->passengers.size() <= this->aircraft->getAbilityPass();
+}
+
+bool Flight::bookSeat( Passenger *passenger ){
+  bool res = this->hasAvailableSeats();
+  if ( res ){
+    this->passengers.push_back( passenger );
+  } else {
+    std::cout << "Error: there are not enough seats." << std::endl;
+  }
+  return res;
+}
+int Flight::getBookedSeats(){
+  return this->passengers.size();
+}
+
+
 bool Flight::operator< ( const Flight &f ) const{
   bool res = this->flightCode < f.flightCode;
   return res;

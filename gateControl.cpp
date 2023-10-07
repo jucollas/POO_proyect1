@@ -28,7 +28,7 @@ std::string GateControl::bookBoardingGate( Flight * f ){
   return res;
 }
 
-void freeBoardingGate( const std::string &gateId ){
+void GateControl::freeBoardingGate( const std::string &gateId ){
   std::map<std::string,BoardingGate*>::iterator mapValue = this->gates.find( gateId );
   if ( mapValue == this->gates.end() ) {
     std::cout << "Error: the gateId \"" << gateId << "\" is not in the gates" << std::endl;
@@ -37,5 +37,16 @@ void freeBoardingGate( const std::string &gateId ){
   } else {
     mapValue->second->dispatchFlight();
     std::cout << "The gate \"" << gateId << "\" is now free." << std::endl;
+  }
+}
+
+void GateControl::addGate( const std::string &id, const std::string &location ){
+  BoardingGate *tmp = new BoardingGate( id, location );
+  this->gates.insert( std::pair<std::string,BoardingGate*>( id, tmp ) );
+}
+
+GateControl::~GateControl(){
+  for ( std::map<std::string,BoardingGate*>::iterator it = this->gates.begin() ; it != this->gates.end() ; ++it ){
+    delete it->second;
   }
 }
