@@ -21,6 +21,10 @@ ControlTower* ControlTower::getInstance(){
   return ControlTower::instance;
 }
 
+GateControl *ControlTower::getGateControl(){
+  return this->gateControl;
+}
+
 void ControlTower::addFlight( Flight *f ){
   this->flights.insert( f );
 }

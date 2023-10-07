@@ -10,144 +10,147 @@
 #include <string>
 #include <vector>
 
-#include "flightBuilder.h"
 #include "aircraft.h"
 #include "crew.h"
 #include "passenger.h"
 #include "planeFactory.h"
 #include "helicopterFactory.h"
 #include "jetFactory.h"
+#include "gateControl.h"
+#include "controlTower.h"
+#include "buyingManager.h"
 
 Aircraft * aircraftModule();
-Flight * crearVuelo();
-Aircraft *aircraftCreator();
-Passenger *createPassenger();
-Crew *createCrewMember();
 int requestRange( int, bool );
+void levantamientoDeDatos();
+void menuPrincipal();
+void menuCompra();
+void menuManager();
+Passenger* createPassenger();
+std::string inLineStr();
 
 std::vector<Aircraft*> warehouse;
 std::vector<Crew*> staff;
-std::vector<Passenger*> regulars;
+ControlTower *controlTower;
+BuyingManager *buyingManager;
 
 int main(){
-	warehouse.push_back( aircraftModule() );
-	crearVuelo();
+	//warehouse.push_back( aircraftModule() );
+	levantamientoDeDatos();
+	menuPrincipal();
 	return 0;
 }
 
-Flight * crearVuelo(){
-	FlightBuilder *helper = new FlightBuilder();
-	std::cout << "Bienvenido al creador de vuelo. Los siguientes comandos permiten agregar informacion del vuelo:\n";
-	std::cout << "'client', 'crew', 'aircraft', 'code', 'date', 'origin', 'destiny', 'latitude', 'longitude' y 'height'.\n";
-	std::cout << "Para terminar, escriba 'exit'\n";
-	std::string command;
+void menuCompra(){
+	Passenger *client = createPassenger();
+
+	std::cout << "Welcome to the flight buyer interface" << std::endl;
+	std::cout << "write 'exit' to exit this interface" << std::endl;
+	std::cout << "write 'book' <int> to book the corresponding flight." << std::endl;
+	std::cout << "write 'info' to see a list of all available fligts." << std::endl;
+	std::cout << "'date' <string> to filter through a date in the next 'info'" << std::endl;
+	std::cout << "'origin' <string> to filter through a origin in the next 'info'" << std::endl;
+	std::cout << "'destiny' <string> to filter through a destiny in the next 'info'" << std::endl;
+	std::string command, date, origin, destiny;
+	std::vector<std::string> tmp;
+	int index;
 	std::cin >> command;
 	while ( command != "exit" ){
-		if ( command == "client" ){
-			Passenger *pass = createPassenger();
-			helper->addPassenger( pass );
-		} else if ( command == "crew" ){
-			Crew *member = createCrewMember();
-			helper->addCrewMember( member );
-		} else if ( command == "aircraft" ){
-			Aircraft *av = aircraftCreator();
-			helper->setAircraft( av );
-		} else if ( command == "code" ){
-			std::cin >> command;
-			helper->setFlightCode( command );
+		if ( command == "book" ){
+			index = requestRange( tmp.size(), true );
+			if ( index != -1 ){
+				bool succesfull = buyingManager->scheduleFlight( tmp[index], client );
+				if ( succesfull ){
+					std::cout << "flight booked succesfully." << std::endl;
+				}
+			}
+		} else if ( command == "info" ){
+			tmp = buyingManager->filterAndPrintFlight( date, origin, destiny );
+			date = std::string();
+			origin = std::string();
+			destiny = std::string();
 		} else if ( command == "date" ){
-			std::cin >> command;
-			helper->setDate( command );
+			date = inLineStr();
 		} else if ( command == "origin" ){
-			std::cin >> command;
-			helper->setOrigin( command );
+			origin = inLineStr();
 		} else if ( command == "destiny" ){
-			std::cin >> command;
-			helper->setDestiny( command );
-		} else if ( command == "latitude" ){
-			double l;
-			std::cin >> l;
-			helper->setLatitude( l );
-		} else if ( command == "longitude" ){
-			double l;
-			std::cin >> l;
-			helper->setLongitude( l );
-		} else if ( command == "height" ){
-			int h;
-			std::cin >> h;
-			helper->setHeight( h );
+			destiny = inLineStr();
 		} else {
-			std::cout << "No se le entendio el comando" << std::endl;
+			std::cout << "The command \"" << command << "\" wasn't understood." << std::endl;
 		}
-		std::cin >> command;
 	}
-	Flight *res = helper->getResult();
-	delete helper;
+}
+
+void menuPrincipal(){
+	std::cout << "Escriba -1 para salir, 0 para comprar vuelo, 1 para entrar al modo manager." << std::endl;
+	int command = requestRange( 2, true );
+	while ( command != -1 ){
+		switch( command ) {
+		case 0:
+			menuCompra();
+			break;
+		case 1:
+			menuManager();
+			break;
+		}
+		command = requestRange( 2, true );
+	}
+}
+
+void menuManager(){
+	std::cout << "cagaste"<< std::endl;
+}
+
+void levantamientoDeDatos(){
+	buyingManager = new BuyingManager();
+	controlTower = ControlTower::getInstance();
+	GateControl *tmp = controlTower->getGateControl();
+	tmp->addGate( "01", "primero" );
+	tmp->addGate( "02", "segundo" );
+	tmp->addGate( "03", "tercero" );
+	tmp->addGate( "04", "cuarto" );
+	tmp->addGate( "05", "quinto" );
+
+	// añadir a warehouse
+
+	staff.push_back( new Crew( "1100", "Pedro", "De la renta", "4/5/1996", "H", "avenida -2", "31034086", "pedrito@inventos.com", "Piloto", 28, 5 ) );
+	staff.push_back( new Crew( "1101", "Nidia", "Zapata", "36/9/1956", "M", "avenida -2", "31034086", "nidia@inventos.com", "Azafata", 20, 11 ) );
+	staff.push_back( new Crew( "1102", "Jeronimo", "Gutierrez", "9/11/2001", "H", "avenida -2", "31034086", "jeronimo@inventos.com", "Azafato", 2, 15 ) );
+	staff.push_back( new Crew( "1103", "Schex", "Zscellin", "9/1/1995", "?", "avenida -2", "31034086", "schex@inventos.com", "Piloto", 0, 20 ) );
+	staff.push_back( new Crew( "1104", "Sandra", "Mora", "10/12/1959", "M", "avenida -2", "31034086", "sandra@inventos.com", "Azafata", 8, 10 ) );
+	staff.push_back( new Crew( "1105", "Hermione", "Granger", "8/8/1976", "Maga", "avenida -2", "31034086", "hermione@inventos.com", "Mecanica", 6, 3 ) );
+	staff.push_back( new Crew( "1106", "Jertrudis", "Alcancia", "17/1/1830", "M", "avenida -2", "31034086", "jertrudis@inventos.com", "Azafata", 7, 6 ) );
+	staff.push_back( new Crew( "1107", "Batman", "Murcielago", "27/9/1999", "Batman", "avenida -2", "31034086", "laNoche@inventos.com", "Guardia de seguridad", 2, 1 ) );
+
+
+}
+
+Passenger* createPassenger(){
+	std::string cedula, name, surname,medicalInfo;
+	std::cout << "Welcome to the passenger account creator." << std::endl << std::endl;
+    cin.ignore();
+	std::cout << "Name: ";
+	getline( cin, name );
+	std::cout << "Surname: ";
+	getline( cin, surname );
+	std::cout << "Cedula: ";
+	std::cin >> cedula;
+	std::cout << "Medical information: ";
+	getline( cin, medicalInfo );
+	Passenger *res = new Passenger( cedula, name, surname, "?", "?", "?", "?", "?", "?", medicalInfo, 1 );
 	return res;
 }
 
-Aircraft *aircraftCreator(){
-	std::cout << "Opciones de aeronave.\n";
-	for ( int index = 0 ; index < warehouse.size() ; ++index ){
-		std::cout << '[' << index << ']' << " ";
-		warehouse[index]->printInfo();
-		std::cout << std::endl;
-	}
-	int num = requestRange( warehouse.size(), true );
-	Aircraft *res;
-	if ( num == -1 ){
-		res = new Aircraft( "100", "toyota", "1946", "1948", "dead", 0, 0, 0 );
-		warehouse.push_back( res );
-	} else {
-		res = warehouse[num];
-	}
-	return res;
-}
-Passenger *createPassenger(){
-	std::cout << "Opciones de pasajero.\n";
-	for ( int index = 0 ; index < regulars.size() ; ++index ){
-		std::cout << '[' << index << ']' << " ";
-		regulars[index]->info();
-		std::cout << std::endl;
-	}
-
-	int num = requestRange( regulars.size(), true );
-	Passenger *res;
-	if ( num == -1 ){
-		res = new Passenger( "100", "josefo", "brisales", "0/0/2000", "undefined", "?", "?", "?", "colombia", "dead", 0 );
-		regulars.push_back( res );
-	} else {
-		res = regulars[num];
-	}
-	return res;
-}
-Crew *createCrewMember(){
-	std::cout << "Opciones de tripulacion.\n";
-	for ( int index = 0 ; index < staff.size() ; ++index ){
-		std::cout << '[' << index << ']' << " ";
-		staff[index]->info();
-		std::cout << std::endl;
-	}
-	int num = requestRange( staff.size(), true );
-	Crew *res;
-	if ( num == -1 ){
-		res = new Crew( "1001", "Jeronimo", "Gutierrez", "0/0/2000", "undefined", "?", "?", "?", "alcalde", 1, 100 );
-		staff.push_back( res );
-	} else {
-		res = staff[num];
-	}
-	return res;
-}
 int requestRange( int range, bool negative ){
 	if ( range == 0 ){
 		return -1;
 	}
 	int res;
-	std:: cout << "Escriba un numero del 0-" << range << "para seleccionar una opcion.";
+	/*std:: cout << "Escriba un numero del 0-" << range << "para seleccionar una opcion.";
 	if ( negative ){
 		std::cout << "Escriba '-1' para no seleccionar ninguna.";
 	}
-	std::cout << std::endl;
+	std::cout << std::endl;*/
 	do {
 		std::cout << "> ";
 		std::cin >> res;
@@ -176,4 +179,17 @@ Aircraft * aircraftModule(){
     aircraft = factory->crearAeronave();
     aircraft->printInfo();
     return aircraft;
+}
+
+std::string inLineStr(){
+	std::string res;
+	char t;
+	do {
+		std::cin >> t;
+	} while ( t == ' ' );
+	while ( t != ' ' && t != '\n' && std::cin ){
+		res.push_back( t );
+		std::cin >> t;
+	}
+	return res;
 }
