@@ -8,7 +8,7 @@ octubre 4 2023
 
 #include "flight.h"
 
-Flight::Flight( Aircraft *aircraft, ControlTower *control, const std::list<Passenger*> &passengers, std::list<Crew*> &crewMates, const std::string &flightCode, const std::string &date, const std::string &origin, const std::string &destiny, double latitude, double longitude, int height ) : aircraft(aircraft), control(control), passengers(passengers), crewMates(crewMates), flightCode(flightCode), date(date), origin(origin), destiny(destiny), longitude(longitude), latitude(latitude), height(height), activeFlight(false), gateId("") {};
+Flight::Flight( Aircraft *aircraft, ControlTower *control, std::list<Crew*> &crewMates, const std::string &flightCode, const std::string &date, const std::string &origin, const std::string &destiny, double latitude, double longitude, int height ) : aircraft(aircraft), control(control), crewMates(crewMates), flightCode(flightCode), date(date), origin(origin), destiny(destiny), longitude(longitude), latitude(latitude), height(height), activeFlight(false), gateId("") {};
 
 std::string Flight::getGateId(){
   return this->gateId;

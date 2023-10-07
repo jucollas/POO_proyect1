@@ -33,7 +33,7 @@ private:
   bool activeFlight;
   std::string gateId;
 public:
-  Flight( Aircraft *, ControlTower *, const std::list<Passenger*> &, std::list<Crew*> &, const std::string &, const std::string &, const std::string &, const std::string &, double, double, int );
+  Flight( Aircraft *, ControlTower *, std::list<Crew*> &, const std::string &, const std::string &, const std::string &, const std::string &, double, double, int );
 
   void sendFlightInformation();
   void receiveMessage( Message * );

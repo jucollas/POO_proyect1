@@ -25,6 +25,13 @@ int Aircraft::getAbilityPass(){
     return abilityPass;
 }
 
+int Aircraft::getAsociatedFlights(){
+    return this->asociatedFlights;
+}
+bool Aircraft::isInflight(){
+    return this->inFlight;
+}
+
 int Aircraft::getSpeedMax(){
     return speedMax;
 }
@@ -70,4 +77,28 @@ void Aircraft::printInfo() {
     cout << "Ability to Passengers: " << getAbilityPass() << endl;
     cout << "Maximum Speed: " << getSpeedMax() << endl;
     cout << "Autonomy: " << getAutonomy() << endl;
+}
+
+bool Aircraft::canAssignFlight(){
+    bool res = MaxFlightsPerAirplane > asociatedFlights;
+}
+bool Aircraft::assignFlight(){
+    bool res = this->canAssignFlight();
+    if ( res ){
+        ++this->asociatedFlights;
+    }
+}
+void Aircraft::activateFlight(){
+    if ( this->inFlight ){
+        std::cout << "Error: we are already in flight." << std::endl;
+    } else {
+        this->inFlight = true;
+    }
+}
+void Aircraft::deactivateFlight(){
+    if ( !this->inFlight ){
+        std::cout << "Error: we are not already in flight." << std::endl;
+    } else {
+        --this->asociatedFlights;
+    }
 }

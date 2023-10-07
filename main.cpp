@@ -21,6 +21,7 @@
 #include "buyingManager.h"
 
 Aircraft * aircraftModule();
+void flightModule();
 int requestRange( int, bool );
 void levantamientoDeDatos();
 void menuPrincipal();
@@ -31,6 +32,7 @@ std::string inLineStr();
 
 std::vector<Aircraft*> warehouse;
 std::vector<Crew*> staff;
+std::vector<Flight*> flights;
 ControlTower *controlTower;
 BuyingManager *buyingManager;
 
@@ -156,6 +158,34 @@ int requestRange( int range, bool negative ){
 		std::cin >> res;
 	} while ( ( ( !negative || res != -1 ) && res < 0 ) || res >= range  );
 	return res;
+}
+
+void flightModule(){
+	Flight* flight = NULL;
+	std::cout << "Welcome to the flight creator" << std::endl;
+    cin.ignore();
+	std::cout << "flight code: ";
+	std::cin >> flightCode;
+	std::cout << "date: ";
+	std::cin >> date;
+	std::cout << "if origin == 'aragon', then it will be available to the client.\norigin: ";
+	std::cin >> origin;
+	std::cout << "destiny: ";
+	std::cin >> destiny;
+	Aircraft *aircraft = aircraftSelector();
+	std::list<Crew*> crewMates;
+	std::cout << "type the indexes of the crew members desired: (-1 to end)" << std::endl;
+	int index = requestRange( staff.size(), true );
+	while ( index != -1 ){
+		crewMates.push_back( staff[index] );
+		index = requestRange( staff.size(), true );
+	}
+	flight = new Flight( aircraft, controlTower, crewMates, flightCode, date, origin, destiny, 0, 0, 0 );
+	if ( origin == "aragon" ){
+		buyingManager->addFlight( flight );
+	}
+	flights.push_back( flight );
+	return flight;
 }
 
 Aircraft * aircraftModule(){

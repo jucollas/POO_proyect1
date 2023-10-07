@@ -6,6 +6,8 @@
 
 using namespace std;
 
+#define MaxFlightsPerAircraft 3
+
 class Aircraft{
 private:
     string N_number;
@@ -16,6 +18,8 @@ private:
     int abilityPass;
     int speedMax;
     int autonomy;
+    int asociatedFlights;
+    bool inFlight;
     
 public:
     /*builders*/
@@ -31,6 +35,8 @@ public:
     int getAbilityPass();
     int getSpeedMax();
     int getAutonomy();
+    int getAsociatedFlights();
+    bool isInflight();
 
     /*sets*/
     void setBrand(string&);
@@ -42,6 +48,11 @@ public:
     void setAutonomy(int);
 
     /*functions*/
+
+    bool canAssignFlight();
+    bool assignFlight();
+    void activateFlight();
+    void deactivateFlight();
     virtual void printInfo();
 };
 
