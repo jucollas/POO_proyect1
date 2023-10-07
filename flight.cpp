@@ -74,20 +74,18 @@ void Flight::takeOff(){
 }
 
 bool Flight::activateFlight( bool onGround ){
-  if ( isActive() ){
+  if ( this->isActive() ){
     std::cout << "already active" << std::endl;
     return false;
   }
-  bool res;
-  if ( onGround ) {
-    this->activeFlight;
-    res = true;
-  } else {
+  bool res = !this->aircraft->isInFlight() && !this->aircraft->inManteinance();
+  if ( !onGround && res ) {
     this->gateId = control->bookBoardingGate( this );
     res = this->gateId != std::string();
   }
   if ( res ) {
     control->addFlight( this );
+    this->activeFlight = true;
     std::cout << "Flight connected to control tower" << std::endl;
   } else {
     std::cout << "Impossible to activate flight" << std::endl;

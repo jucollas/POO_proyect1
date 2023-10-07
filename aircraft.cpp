@@ -28,7 +28,7 @@ int Aircraft::getAbilityPass(){
 int Aircraft::getAsociatedFlights(){
     return this->asociatedFlights;
 }
-bool Aircraft::isInflight(){
+bool Aircraft::isInFlight(){
     return this->inFlight;
 }
 
@@ -80,7 +80,7 @@ void Aircraft::printInfo() {
 }
 
 bool Aircraft::canAssignFlight(){
-    bool res = MaxFlightsPerAirplane > asociatedFlights;
+    bool res = MaxFlightsPerAircraft > asociatedFlights;
 }
 bool Aircraft::assignFlight(){
     bool res = this->canAssignFlight();
@@ -100,5 +100,23 @@ void Aircraft::deactivateFlight(){
         std::cout << "Error: we are not already in flight." << std::endl;
     } else {
         --this->asociatedFlights;
+    }
+}
+
+bool Aircraft::inManteinance(){
+    return this->manteinance;
+}
+void Aircraft::putInManteinance(){
+    if ( this->inFlight || this->manteinance ){
+        std::cout << "Error: unable to put in manteinance." << std::endl;
+    } else {
+        this->manteinance = true;
+    }
+}
+void Aircraft::endManteinance(){
+    if ( !this->manteinance ){
+        std::cout << "Error: already in manteinance" << std::endl;
+    } else {
+        this->manteinance = false;
     }
 }

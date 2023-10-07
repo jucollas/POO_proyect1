@@ -162,6 +162,7 @@ int requestRange( int range, bool negative ){
 
 void flightModule(){
 	Flight* flight = NULL;
+	std::string flightCode, date, origin, destiny;
 	std::cout << "Welcome to the flight creator" << std::endl;
     cin.ignore();
 	std::cout << "flight code: ";

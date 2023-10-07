@@ -20,6 +20,7 @@ private:
     int autonomy;
     int asociatedFlights;
     bool inFlight;
+    bool manteinance;
     
 public:
     /*builders*/
@@ -36,7 +37,8 @@ public:
     int getSpeedMax();
     int getAutonomy();
     int getAsociatedFlights();
-    bool isInflight();
+    bool isInFlight();
+    bool inManteinance();
 
     /*sets*/
     void setBrand(string&);
@@ -53,6 +55,8 @@ public:
     bool assignFlight();
     void activateFlight();
     void deactivateFlight();
+    void putInManteinance();
+    void endManteinance();
     virtual void printInfo();
 };
 
