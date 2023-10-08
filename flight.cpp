@@ -40,6 +40,10 @@ std::list<Crew*> Flight::getCrewMates(){
 }
 
 void Flight::sendFlightInformation(){
+  if ( !this->isActive() ){
+    std::cout << "The flight is inactive" << std::endl;
+    return;
+  }
   Message *m = new Message( 1.0,2.1, 10, this->flightCode );
   control->notifyFlights( m );
   delete m;
@@ -81,7 +85,7 @@ void Flight::takeOff(){
 bool Flight::activateFlight( bool onGround ){
   bool res = !this->isActive() && !this->alreadyFlew;
   res = res && !this->aircraft->isInFlight() && !this->aircraft->inManteinance();
-  if ( !onGround && res ) {
+  if ( onGround && res ) {
     this->gateId = control->bookBoardingGate( this );
     res = this->gateId != std::string();
   }

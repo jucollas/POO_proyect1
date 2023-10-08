@@ -27,12 +27,13 @@ bool BoardingGate::assignFlight( Flight *f ){
 	bool res = isAvailable();
 	if ( res ){
 		this->inGate = f;
+		this->boardingTime = f->getDate();
 	}
 	return res;
 }
 
 void BoardingGate::dispatchFlight(){
-	if ( this->inGate == NULL ){
+	if ( this->inGate != NULL ){
 		this->history.push_back( this->inGate );
 		this->inGate = NULL;
 	}

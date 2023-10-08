@@ -49,10 +49,6 @@ void ControlTower::freeBoardingGate( const std::string &gateId ){
   this->gateControl->freeBoardingGate( gateId );
 }
 
-void ControlTower::showMessage() {
-  std::cout << "¡Hola desde la instancia ControlTower!" << std::endl;
-}
-
 void ControlTower::info(){
   std::cout << "There are " << flights.size() << " flights connected to the control tower." << std::endl;
   for ( std::set<Flight*>::iterator it = this->flights.begin() ; it != this->flights.end() ; ++it ){

@@ -8,7 +8,6 @@
 #include "gateControl.h"
 
 GateControl::GateControl(){
-  std::cout << "terminar para mas rato" << std::endl;
 }
 
 std::string GateControl::bookBoardingGate( Flight * f ){

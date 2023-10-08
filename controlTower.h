@@ -36,10 +36,7 @@ public:
 
   GateControl *getGateControl();
 
-  void info();
-  
-  void showMessage();
-  
+  void info();  
 };
 
 #endif

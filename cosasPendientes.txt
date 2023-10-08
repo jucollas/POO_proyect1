@@ -1,7 +1,9 @@
 terminar 'sendFlightInformation' de clase 'Flight' para que de datos aleatorios.
 
-¿que putas es 'abilityPass'? Yo asumi que es los asientos. De no ser asi, toca modificar Flight::hasAvailableSeats(); y BuyingManager::filterAndPrintFlight(); y aircraftSelector();(de main.cpp).
-
-Falta cargar datos como vuelos o aeronaves en 'levantamientoDeDatos' de main.cpp
-
 Falta embellecer la interfaz. Yo no creo que pueda mejorar eso
+
+falta hacer toda la documentacion
+
+Falta hacer algunos throw en algunas operaciones como el de asignar un vuelo a un avion, que si fallan no hay manera de corregir in-time
+
+falta el UML

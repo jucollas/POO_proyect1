@@ -28,7 +28,7 @@ std::vector<std::string> BuyingManager::filterAndPrintFlight( const std::string 
 	std::vector<std::string> res;
 	for ( std::map<std::string,Flight*>::iterator it = this->scheduledFlights.begin(); it != this->scheduledFlights.end() ; ++it ){
 		if ( ( date == std::string() || date == it->second->getDate() ) && ( origin == std::string() || origin == it->second->getOrigin() ) && ( destiny == std::string() || destiny == it->second->getDestiny() ) ){
-			std::cout << "[" << res.size() << "] date: " << it->second->getDate() << ", origin: " << it->second->getOrigin() << ", destiny: " << it->second->getDestiny() << ". With [" << it->second->getBookedSeats() << "/" << it->second->getAircraft()->getAbilityPass() << "] available seats." << std::endl;
+			std::cout << "[" << res.size() << "] " << it->second->getFlightCode() << " | date: " << it->second->getDate() << ", origin: " << it->second->getOrigin() << ", destiny: " << it->second->getDestiny() << ". With [" << it->second->getBookedSeats() << "/" << it->second->getAircraft()->getAbilityPass() << "] available seats." << std::endl;
 			res.push_back( it->first );
 		}
 	}
