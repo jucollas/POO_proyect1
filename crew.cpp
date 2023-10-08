@@ -47,4 +47,5 @@ void Crew::anotherYearsExperience(){
 void Crew::info(){
 	Person::info();
 	std::cout << ".Position: " << this->jobPosition;
+	std::cout << std::endl;
 }

@@ -1,6 +1,10 @@
 #include "aircraft.h"
 
-Aircraft::Aircraft(const string& N_number,const string& brand,const string& model, const string& yearProduction, const string& status, int abilityPass, int speedMax, int autonomy) : N_number(N_number), brand(brand), model(model),yearProduction(yearProduction), status(status), abilityPass(abilityPass), speedMax(speedMax), autonomy(autonomy){}
+Aircraft::Aircraft(const string& N_number,const string& brand,const string& model, const string& yearProduction, const string& status, int abilityPass, int speedMax, int autonomy) : N_number(N_number), brand(brand), model(model),yearProduction(yearProduction), status(status), abilityPass(abilityPass), speedMax(speedMax), autonomy(autonomy){
+    this->asociatedFlights = 0;
+    this->inFlight = false;
+    this->manteinance = false;
+}
 
 string Aircraft::getN_number(){
     return N_number;

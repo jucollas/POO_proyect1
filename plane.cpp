@@ -1,6 +1,6 @@
 #include "plane.h"
 
-Plane::Plane(Aircraft* aircraft, int heightMax, int nEngines, string& category) : Aircraft(*aircraft), heightMax(heightMax), nEngines(nEngines), category(category) {}
+Plane::Plane(Aircraft* aircraft, int heightMax, int nEngines, const string& category) : Aircraft(*aircraft), heightMax(heightMax), nEngines(nEngines), category(category) {}
 
 int Plane::getHeightMax(){
     return heightMax;

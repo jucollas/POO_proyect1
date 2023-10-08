@@ -27,6 +27,8 @@ public:
 
     void addGate( const std::string &, const std::string & );
 
+    void info();
+
     ~GateControl();
 };
 

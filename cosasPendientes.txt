@@ -1,10 +1,7 @@
 terminar 'sendFlightInformation' de clase 'Flight' para que de datos aleatorios.
 
-¿que putas es 'abilityPass'? Yo asumi que es los asientos. De no ser asi, toca modificar Flight::hasAvailableSeats(); y BuyingManager::filterAndPrintFlight();
-
-
-Terminar el 'menuManager' de main.cpp. Mi idea, es que este permita crear vuelos, tripulantes, y aeronaves. Tambien que permita hacer operaciones sobre aeronaves como meterle modo mantenimiento. Tambien que permita hacer operaciones sobre vuelos como activarlos, desactivarlos, despegar, aterrizar, y mandar poscicion.
-
-Falta hacer un 'aircraftSelector' en main.cpp que permita seleccionar una aeronave en el creador de vuelos.
+¿que putas es 'abilityPass'? Yo asumi que es los asientos. De no ser asi, toca modificar Flight::hasAvailableSeats(); y BuyingManager::filterAndPrintFlight(); y aircraftSelector();(de main.cpp).
 
 Falta cargar datos como vuelos o aeronaves en 'levantamientoDeDatos' de main.cpp
+
+Falta embellecer la interfaz. Yo no creo que pueda mejorar eso

@@ -35,6 +35,8 @@ public:
   void freeBoardingGate( const std::string & );
 
   GateControl *getGateControl();
+
+  void info();
   
   void showMessage();
   

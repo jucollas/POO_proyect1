@@ -11,6 +11,9 @@
 #include <vector>
 
 #include "aircraft.h"
+#include "plane.h"
+#include "jet.h"
+#include "helicopter.h"
 #include "crew.h"
 #include "passenger.h"
 #include "planeFactory.h"
@@ -21,14 +24,18 @@
 #include "buyingManager.h"
 
 Aircraft * aircraftModule();
-void flightModule();
+void flightCreator();
 int requestRange( int, bool );
+bool requestBool();
 void levantamientoDeDatos();
 void menuPrincipal();
 void menuCompra();
 void menuManager();
 Passenger* createPassenger();
 std::string inLineStr();
+Aircraft* aircraftSelector();
+void flightMenu();
+
 
 std::vector<Aircraft*> warehouse;
 std::vector<Crew*> staff;
@@ -80,6 +87,7 @@ void menuCompra(){
 		} else {
 			std::cout << "The command \"" << command << "\" wasn't understood." << std::endl;
 		}
+		std::cin >> command;
 	}
 }
 
@@ -95,25 +103,94 @@ void menuPrincipal(){
 			menuManager();
 			break;
 		}
+		std::cout << "Escriba -1 para salir, 0 para comprar vuelo, 1 para entrar al modo manager." << std::endl;
 		command = requestRange( 2, true );
 	}
 }
 
 void menuManager(){
-	std::cout << "cagaste"<< std::endl;
+	Aircraft *aircraft;
+	std::cout << "Escriba [-1] para salir, [0] para crear vuelo, [1] para crear aeronaves, [2] para hacer operaciones sobre vuelos" << std::endl;
+	int comand = requestRange( 3, true );
+	while ( comand != -1 ){
+		switch ( comand ){
+		case 0:
+			flightCreator();
+			break;
+		case 1:
+			aircraft = aircraftModule();
+			warehouse.push_back( aircraft );
+			break;
+		case 2:
+			flightMenu();
+			break;
+		}
+		std::cout << "Escriba [-1] para salir, [0] para crear vuelo, [1] para crear aeronaves, [2] para hacer operaciones sobre vuelos" << std::endl;
+		comand = requestRange( 3, true );
+	}
 }
+
+void flightMenu(){
+	std::cout << "Escriba 'exit' para salir, 'info', 'activate' <int>, 'end' <int>, 'land' <int>, 'takeOff' <int>, 'sendPosition' <int>." << std::endl;
+	std::string comand;
+	std::cin >> comand;
+	int index;
+	bool question;
+	while ( comand != "exit" ){
+		if ( comand == "info" ){
+			for ( index = 0 ; index < flights.size() ; ++index ){
+				std::cout << "[" << index << "] ";
+				flights[index]->info();
+			}
+		} else if ( comand == "activate" ){
+			index = requestRange( flights.size(), false );
+			std::cout << "Activate in mid-flight? ";
+			question = requestBool();
+			flights[index]->activateFlight( question );
+		} else if ( comand == "end" ){
+			index = requestRange( flights.size(), false );
+			question = flights[index]->endFlight();
+			if ( question ){
+				flights.erase( flights.begin()+index );
+			}
+		} else if ( comand == "land" ){
+			index = requestRange( flights.size(), false );
+			flights[index]->land();
+		} else if ( comand == "takeOff" ){
+			index = requestRange( flights.size(), false );
+			flights[index]->takeOff();
+		} else if ( comand == "sendPosition" ){
+			index = requestRange( flights.size(), false );
+			flights[index]->sendFlightInformation();
+		} else {
+			std::cout << "Error: the command \"" << comand << "\" wasn't understood." << std::endl;
+		}
+		std::cout << "Escriba 'exit' para salir, 'info', 'activate' <int>, 'end' <int>, 'land' <int>, 'takeOff' <int>, 'sendPosition' <int>." << std::endl;
+		std::cin >> comand;
+	}	
+}
+
 
 void levantamientoDeDatos(){
 	buyingManager = new BuyingManager();
 	controlTower = ControlTower::getInstance();
-	GateControl *tmp = controlTower->getGateControl();
-	tmp->addGate( "01", "primero" );
-	tmp->addGate( "02", "segundo" );
-	tmp->addGate( "03", "tercero" );
-	tmp->addGate( "04", "cuarto" );
-	tmp->addGate( "05", "quinto" );
+	GateControl *cntrl = controlTower->getGateControl();
+	cntrl->addGate( "01", "primero" );
+	cntrl->addGate( "02", "segundo" );
+	cntrl->addGate( "03", "tercero" );
+	cntrl->addGate( "04", "cuarto" );
+	cntrl->addGate( "05", "quinto" );
 
-	// añadir a warehouse
+	Aircraft *tmp = new Aircraft( "T-0001", "Avianca", "boeing", "2000", "dormido", 10, 100, 100 );
+	warehouse.push_back( new Plane( tmp, 10000, 2, "Comercial" ) );
+	tmp = new Aircraft( "T-0002", "Avianca", "boeing", "2000", "dormido", 2, 100, 100 );
+	warehouse.push_back( new Plane( tmp, 100, 2, "Comercial" ) );
+	tmp = new Aircraft( "T-0003", "Avianca", "boeing", "2000", "dormido", 5, 100, 100 );
+	warehouse.push_back( new Plane( tmp, 500, 2, "Comercial" ) );
+
+	Flight *flight = new Flight( tmp, controlTower, std::list<Crew*>(), "Pred-00", "7/10/2023", "aragon", "bogota", 0,0,0 );
+	flights.push_back( flight );
+	buyingManager->addFlight( flight );
 
 	staff.push_back( new Crew( "1100", "Pedro", "De la renta", "4/5/1996", "H", "avenida -2", "31034086", "pedrito@inventos.com", "Piloto", 28, 5 ) );
 	staff.push_back( new Crew( "1101", "Nidia", "Zapata", "36/9/1956", "M", "avenida -2", "31034086", "nidia@inventos.com", "Azafata", 20, 11 ) );
@@ -138,6 +215,7 @@ Passenger* createPassenger(){
 	std::cout << "Cedula: ";
 	std::cin >> cedula;
 	std::cout << "Medical information: ";
+	cin.ignore();
 	getline( cin, medicalInfo );
 	Passenger *res = new Passenger( cedula, name, surname, "?", "?", "?", "?", "?", "?", medicalInfo, 1 );
 	return res;
@@ -160,7 +238,20 @@ int requestRange( int range, bool negative ){
 	return res;
 }
 
-void flightModule(){
+Aircraft* aircraftSelector(){
+	std::cout << "Index | choose an aircraft with the index:" << std::endl;
+	for ( int i = 0 ; i < warehouse.size() ; ++i ){
+		std::cout << "[" << i << "] - " << warehouse[i]->getN_number() << " - " << warehouse[i]->getModel() << ". capacity: " << warehouse[i]->getAbilityPass() << ". flights [" << warehouse[i]->getAsociatedFlights() << "/" << MaxFlightsPerAircraft << "]" << std::endl; 
+	}
+	int index = requestRange( warehouse.size(), false );
+	while ( !warehouse[index]->canAssignFlight() ){
+		index = requestRange( warehouse.size(), false );
+	}
+	return warehouse[index];
+}
+
+
+void flightCreator(){
 	Flight* flight = NULL;
 	std::string flightCode, date, origin, destiny;
 	std::cout << "Welcome to the flight creator" << std::endl;
@@ -176,6 +267,10 @@ void flightModule(){
 	Aircraft *aircraft = aircraftSelector();
 	std::list<Crew*> crewMates;
 	std::cout << "type the indexes of the crew members desired: (-1 to end)" << std::endl;
+	for ( int i = 0 ; i < staff.size() ; ++i ){
+		std::cout << "[" << i << "]";
+		staff[i]->info();
+	}
 	int index = requestRange( staff.size(), true );
 	while ( index != -1 ){
 		crewMates.push_back( staff[index] );
@@ -186,7 +281,6 @@ void flightModule(){
 		buyingManager->addFlight( flight );
 	}
 	flights.push_back( flight );
-	return flight;
 }
 
 Aircraft * aircraftModule(){
@@ -194,7 +288,7 @@ Aircraft * aircraftModule(){
     Aircraft* aircraft = NULL;
     int option;
     cout << "Bienvenido al modulo de Aeronaves" << endl;
-    cout << "que tipo de areo nave desea ingresar en el sistema ?" << endl;
+    cout << "que tipo de areonave desea ingresar en el sistema ?" << endl;
     cout << "1. avion" << endl;
     cout << "2. jet" << endl;
     cout << "3. helicoptero" << endl;
@@ -223,4 +317,14 @@ std::string inLineStr(){
 		std::cin >> t;
 	}
 	return res;
+}
+
+bool requestBool(){
+	std::cout << "[Y/N]" << std::endl;
+	std::string comand;
+	do {
+		std::cout << "> ";
+		std::cin >> comand;
+	} while ( comand != "Y" && comand != "N" );
+	return comand == "Y";
 }

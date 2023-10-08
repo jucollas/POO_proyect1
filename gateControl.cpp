@@ -50,3 +50,11 @@ GateControl::~GateControl(){
     delete it->second;
   }
 }
+
+void GateControl::info(){
+  std::cout << "There are " << this->gates.size() << " gates:" << std::endl;
+  for ( std::map<std::string,BoardingGate*>::iterator it = this->gates.begin() ; it != this->gates.end() ; ++it ){
+    it->second->info();
+  }
+
+}
