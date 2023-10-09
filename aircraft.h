@@ -52,7 +52,7 @@ public:
     /*functions*/
 
     bool canAssignFlight();
-    bool assignFlight();
+    void assignFlight();
     void activateFlight();
     void deactivateFlight();
     void putInManteinance();

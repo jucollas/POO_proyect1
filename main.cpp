@@ -37,6 +37,8 @@ Aircraft* aircraftSelector();
 Passenger* createPassenger();
 Aircraft * aircraftModule();
 void flightCreator();
+void crewCreator();
+void gateCreator();
 
 /* helpingOperations */
 int requestRange( int, bool );
@@ -54,6 +56,8 @@ BuyingManager *buyingManager;
 int main(){
 	levantamientoDeDatos();
 	menuPrincipal();
+	delete buyingManager;
+	delete controlTower;
 	return 0;
 }
 
@@ -124,12 +128,16 @@ void menuPrincipal(){
 
 void menuManager(){
 	Aircraft *aircraft;
-	std::cout << "Escriba [-1] para salir, [0] para crear vuelo, [1] para crear aeronaves, [2] para hacer operaciones sobre vuelos, [3] para hacer operaciones sobre aeronaves, [4] para hacer operaciones sobre puertas de abordaje" << std::endl;
-	int comand = requestRange( 5, true );
+	std::cout << "Escriba [-1] para salir, [0] para crear vuelo, [1] para crear aeronaves, [2] para hacer operaciones sobre vuelos, [3] para hacer operaciones sobre aeronaves, [4] para hacer operaciones sobre puertas de abordaje, [5] para crear tripulantes" << std::endl;
+	int comand = requestRange( 6, true );
 	while ( comand != -1 ){
 		switch ( comand ){
 		case 0:
-			flightCreator();
+			try{
+				flightCreator();
+			} catch(...){
+				std::cout << "Unable to create the flight." << std::endl;
+			}
 			break;
 		case 1:
 			aircraft = aircraftModule();
@@ -144,9 +152,12 @@ void menuManager(){
 		case 4:
 			controlTowerMenu();
 			break;
+		case 5:
+			crewCreator();
+			break;
 		}
-		std::cout << "Escriba [-1] para salir, [0] para crear vuelo, [1] para crear aeronaves, [2] para hacer operaciones sobre vuelos, [3] para hacer operaciones sobre aeronaves, [4] para hacer operaciones sobre puertas de abordaje" << std::endl;
-		comand = requestRange( 5, true );
+		std::cout << "Escriba [-1] para salir, [0] para crear vuelo, [1] para crear aeronaves, [2] para hacer operaciones sobre vuelos, [3] para hacer operaciones sobre aeronaves, [4] para hacer operaciones sobre puertas de abordaje, [5] para crear tripulantes" << std::endl;
+		comand = requestRange( 6, true );
 	}
 }
 
@@ -186,7 +197,7 @@ void flightMenu(){
 		}
 		std::cout << "Escriba 'exit' para salir, 'info', 'activate' <int>, 'end' <int>, 'land' <int>, 'takeOff' <int>, 'sendPosition' <int>." << std::endl;
 		std::cin >> comand;
-	}	
+	}
 }
 
 void aircraftMenu(){
@@ -217,15 +228,18 @@ void aircraftMenu(){
 	}
 }
 void controlTowerMenu(){
-	std::cout << "type [-1] to exit, [0] to get information on all flights and boarding gates" << std::endl;
-	int comand = requestRange( 1, true );
+	std::cout << "type [-1] to exit, [0] to get information on all flights and boarding gates, [1] to create a boarding gate" << std::endl;
+	int comand = requestRange( 2, true );
 	while ( comand != -1 ){
 		switch( comand ){
 		case 0:
 			controlTower->info();
 			break;
+		case 1:
+			gateCreator();
+			break;
 		}
-		comand = requestRange( 1, true );
+		comand = requestRange( 2, true );
 	}
 }
 
@@ -257,11 +271,12 @@ Aircraft* aircraftSelector(){
 	for ( int i = 0 ; i < warehouse.size() ; ++i ){
 		std::cout << "[" << i << "] - " << warehouse[i]->getN_number() << " - " << warehouse[i]->getModel() << ". capacity: " << warehouse[i]->getAbilityPass() << ". flights [" << warehouse[i]->getAsociatedFlights() << "/" << MaxFlightsPerAircraft << "]" << std::endl; 
 	}
-	int index = requestRange( warehouse.size(), false );
-	while ( !warehouse[index]->canAssignFlight() ){
-		index = requestRange( warehouse.size(), false );
+	int index = requestRange( warehouse.size(), true );
+	while ( index != -1 && !warehouse[index]->canAssignFlight() ){
+		index = requestRange( warehouse.size(), true );
 	}
-	return warehouse[index];
+	Aircraft *res = ( index != -1 ) ?  warehouse[index] : NULL;
+	return res;
 }
 
 
@@ -279,15 +294,22 @@ void flightCreator(){
 	std::cout << "destiny: ";
 	std::cin >> destiny;
 	Aircraft *aircraft = aircraftSelector();
+	if ( aircraft == NULL  ){
+		throw( "There ain't an aircraft assigned\n" );
+	}
 	std::list<Crew*> crewMates;
 	std::cout << "type the indexes of the crew members desired: (-1 to end)" << std::endl;
 	for ( int i = 0 ; i < staff.size() ; ++i ){
 		std::cout << "[" << i << "]";
 		staff[i]->info();
 	}
+	std::set<int> repeated;
 	int index = requestRange( staff.size(), true );
 	while ( index != -1 ){
-		crewMates.push_back( staff[index] );
+		if ( !repeated.count( index ) ){
+			crewMates.push_back( staff[index] );
+			repeated.insert( index );
+		}
 		index = requestRange( staff.size(), true );
 	}
 	std::cout << "The crew members selected:" << std::endl;
@@ -324,6 +346,47 @@ Aircraft * aircraftModule(){
     return aircraft;
 }
 
+void crewCreator(){
+	std::string cedula, name, surname, birthDate, genre, address, phoneNumber, email, jobPosition;
+	int dailyWorkingHours, experience;
+	std::cout << "Welcome to the crew creator" << std::endl;
+	std::cout << "type your 'cedula': ";
+	std::cin >> cedula;
+	std::cout << "type your name: ";
+	std::cin >> name;
+	std::cout << "type your surname: ";
+	std::cin >> surname;
+	std::cout << "Type your birht date: ";
+	std::cin >> birthDate;
+	std::cout << "Type your genre: ";
+	std::cin >> genre;
+	std::cout << "Type your address: ";
+	std::cin >> address;
+	std::cout << "Type your phone number: ";
+	std::cin >> phoneNumber;
+	std::cout << "Type your email: ";
+	std::cin >> email;
+	std::cout << "type your position/job: ";
+	std::cin >> jobPosition;
+	std::cout << "Type the hours you work daily: ";
+	std::cin >> dailyWorkingHours;
+	std::cout << "Type your years of experience: ";
+	std::cin >> experience;
+	Crew *c = new Crew( cedula, name, surname, birthDate, genre, address, phoneNumber, email, jobPosition, dailyWorkingHours, experience );
+	staff.push_back( c );
+}
+
+void gateCreator(){
+	std::cout << "Welcome to the boarding gate creator" << std::endl;
+	std::string id, loc;
+	std::cout << "Type the identification: ";
+	std::cin >> id;
+	std::cout << "Type the location: ";
+	cin.ignore();
+	getline( cin, loc );
+	controlTower->addGate( id, loc );
+}
+
 /*
 ##########################################################################################################
 ########################################## helping operations ############################################
@@ -334,15 +397,14 @@ void levantamientoDeDatos(){
 	Flight *flight;
 	buyingManager = new BuyingManager();
 	controlTower = ControlTower::getInstance();
-	GateControl *cntrl = controlTower->getGateControl();
-	cntrl->addGate( "01", "primero" );
-	cntrl->addGate( "02", "segundo" );
-	cntrl->addGate( "03", "tercero" );
-	cntrl->addGate( "04", "cuarto" );
-	cntrl->addGate( "05", "quinto" );
+	controlTower->addGate( "01", "La mas cerca a la puerta" );
+	controlTower->addGate( "02", "al lado de la '01'" );
+	controlTower->addGate( "03", "ni p* idea" );
+	controlTower->addGate( "04", "Por donde el de los helados" );
 
 	Aircraft *tmp = new Aircraft( "T-0001", "Avianca", "boeing", "2000", "dormido", 10, 100, 100 );
-	warehouse.push_back( new Plane( tmp, 10000, 2, "Comercial" ) );
+	tmp = new Plane( tmp, 10000, 2, "Comercial" );
+	warehouse.push_back( tmp );
 
 	flight = new Flight( tmp, controlTower, std::list<Crew*>(), "Pred-01", "7/10/2023", "aragon", "medellin", 0,0,0 );
 	flights.push_back( flight );
@@ -353,9 +415,12 @@ void levantamientoDeDatos(){
 	buyingManager->addFlight( flight );
 
 	tmp = new Aircraft( "T-0002", "Avianca", "boeing", "2000", "dormido", 2, 100, 100 );
-	warehouse.push_back( new Plane( tmp, 100, 2, "Comercial" ) );
+	tmp = new Plane( tmp, 100, 2, "Comercial" );
+	warehouse.push_back( tmp );
+
 	tmp = new Aircraft( "T-0003", "Avianca", "boeing", "2000", "dormido", 5, 100, 100 );
-	warehouse.push_back( new Plane( tmp, 500, 2, "Comercial" ) );
+	tmp = new Plane( tmp, 500, 2, "Comercial" );
+	warehouse.push_back( tmp );
 
 	flight = new Flight( tmp, controlTower, std::list<Crew*>(), "Pred-00", "7/10/2023", "aragon", "bogota", 0,0,0 );
 	flights.push_back( flight );
@@ -402,7 +467,7 @@ int requestRange( int range, bool negative ){
 	int res;
 	do {
 		std::cout << "> ";
-		std::cin >> res;
+		scanf ( "%d", &res );
 	} while ( ( ( !negative || res != -1 ) && res < 0 ) || res >= range  );
 	return res;
 }

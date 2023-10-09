@@ -34,8 +34,8 @@ public:
   std::string bookBoardingGate( Flight * );
   void freeBoardingGate( const std::string & );
 
-  GateControl *getGateControl();
-
+  void addGate( const std::string &, const std::string & );
+  
   void info();  
 };
 

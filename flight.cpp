@@ -51,7 +51,7 @@ void Flight::sendFlightInformation(){
 
 void Flight::receiveMessage( Message *m ){
   if ( m->flightCode != this->flightCode ){
-    std::cout << this->flightCode << "received the message: latitude( " << m->latitude << " ), longitude( " << m->longitude << " ), height( " << m->height << " ) flightCode( " << m->flightCode << " )" << std::endl;  
+    std::cout << this->flightCode << " received the message: latitude( " << m->latitude << " ), longitude( " << m->longitude << " ), height( " << m->height << " ) flightCode( " << m->flightCode << " )" << std::endl;  
   }
 }
 
@@ -152,7 +152,7 @@ bool Flight::operator< ( const Flight &f ) const{
 void Flight::info(){
   std::cout << "Flight " << this->flightCode << " with " << this->passengers.size() << " passengers. It goes from " << this->origin << " to " << this->destiny << ". It is assigned to the aircraft " << this->aircraft->getN_number();
   if ( this->isActive() ){
-    std::cout << "It's active";
+    std::cout << ". It's active";
     if ( this->isInAir() ){
       std::cout << " and flying.";
     } else {

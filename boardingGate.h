@@ -25,6 +25,7 @@ public:
 	std::string boardingTime;
 
 	BoardingGate( const std::string &, const std::string & );
+	~BoardingGate();
 
 	std::string getIdentification();
 	std::string getLocation();

@@ -10,6 +10,12 @@
 
 BoardingGate::BoardingGate( const std::string &identification, const std::string &location ) : identification(identification), location(location), inGate(NULL), boardingTime("") {};
 
+BoardingGate::~BoardingGate(){
+	for ( std::list<Flight*>::iterator it = this->history.begin() ; it != this->history.end() ; ++it ){
+		delete *it;
+	}
+}
+
 std::string BoardingGate::getIdentification(){
 	return this->identification;
 }

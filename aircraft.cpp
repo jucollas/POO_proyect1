@@ -86,10 +86,11 @@ void Aircraft::printInfo() {
 bool Aircraft::canAssignFlight(){
     bool res = MaxFlightsPerAircraft > asociatedFlights;
 }
-bool Aircraft::assignFlight(){
-    bool res = this->canAssignFlight();
-    if ( res ){
+void Aircraft::assignFlight(){
+    if ( this->canAssignFlight() ){
         ++this->asociatedFlights;
+    } else {
+        throw ( "Error: there are many flights asociated to this aircraft\n" );
     }
 }
 void Aircraft::activateFlight(){

@@ -10,6 +10,12 @@
 GateControl::GateControl(){
 }
 
+GateControl::~GateControl(){
+  for ( std::map<std::string,BoardingGate*>::iterator it = this->gates.begin() ; it != this->gates.end() ; ++it ){
+    delete it->second;
+  }
+}
+
 std::string GateControl::bookBoardingGate( Flight * f ){
   std::map<std::string,BoardingGate*>::iterator mapValue = this->gates.begin();
   while ( mapValue != this->gates.end() && !mapValue->second->isAvailable() ) {
@@ -42,12 +48,6 @@ void GateControl::freeBoardingGate( const std::string &gateId ){
 void GateControl::addGate( const std::string &id, const std::string &location ){
   BoardingGate *tmp = new BoardingGate( id, location );
   this->gates.insert( std::pair<std::string,BoardingGate*>( id, tmp ) );
-}
-
-GateControl::~GateControl(){
-  for ( std::map<std::string,BoardingGate*>::iterator it = this->gates.begin() ; it != this->gates.end() ; ++it ){
-    delete it->second;
-  }
 }
 
 void GateControl::info(){
