@@ -177,10 +177,14 @@ void flightMenu(){
 			index = requestRange( flights.size(), false );
 			question = flights[index]->getOrigin() == "aragon";
 			flights[index]->activateFlight( question );
+			buyingManager->delFlight( flights[index]->getFlightCode() );
 		} else if ( comand == "end" ){
 			index = requestRange( flights.size(), false );
 			question = flights[index]->endFlight();
 			if ( question ){
+				if ( flights[index]->isInAir() && flights[index]->getOrigin() != "aragon" ){
+					delete flights[index];
+				}
 				flights.erase( flights.begin()+index );
 			}
 		} else if ( comand == "land" ){
