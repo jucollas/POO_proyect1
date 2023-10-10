@@ -48,11 +48,9 @@ Implentacion de clase person y su derivadas
   
 ## Compilación y Ejecución
 
-Para compilar el proyecto, abre una terminal en el directorio raíz y ejecuta el siguiente comando:
-
-cmd:
-.\makeFile.cmd
-.\airport.exe
+Para compilar el proyecto, abre una terminal en el directorio raíz y ejecuta los siguientes comandos:
+- .\makeFile.cmd
+- .\airport.exe
 
 ## Manual
 
