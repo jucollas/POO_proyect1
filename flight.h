@@ -20,6 +20,9 @@ class Flight;
 #include "crew.h"
 #include "controlTower.h"
 #include "aircraft.h"
+#include <iomanip> // Para establecer el número de decimales
+#include <cstdlib> // Para funciones de generación de números aleatorios
+#include <ctime>
 
 class Flight {
 private:
@@ -63,6 +66,8 @@ public:
   bool operator < ( const Flight & ) const;
 
   void info();
+  void setCoordinates(int, double, double);
+  void infoCord();
 };
 
 #endif //FLIGHT_H

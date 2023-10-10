@@ -1,9 +1,0 @@
-terminar 'sendFlightInformation' de clase 'Flight' para que de datos aleatorios.
-
-Falta embellecer la interfaz. Yo no creo que pueda mejorar eso
-
-falta hacer toda la documentacion
-
-Falta hacer algunos throw en algunas operaciones como el de asignar un vuelo a un avion, que si fallan no hay manera de corregir in-time
-
-falta el UML

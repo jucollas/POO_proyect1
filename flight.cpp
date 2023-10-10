@@ -44,7 +44,16 @@ void Flight::sendFlightInformation(){
     std::cout << "The flight is inactive" << std::endl;
     return;
   }
-  Message *m = new Message( 1.0,2.1, 10, this->flightCode );
+  srand(time(0));
+  int height;
+  double latitude, longitude;
+  int random_num;
+  latitude =static_cast<double>(rand() % 18001 - 9000) / 100.0;
+  height =rand() % 18001 - 9000;
+  longitude =static_cast<double>(rand() % 36001 - 18000) / 100.0;
+  this->setCoordinates(height,latitude, longitude);
+  this->infoCord();
+  Message *m = new Message( longitude,latitude, height, this->flightCode );
   control->notifyFlights( m );
   delete m;
 }
@@ -160,4 +169,19 @@ void Flight::info(){
     }
   }
   std::cout << std::endl;
+}
+
+void Flight::setCoordinates(int height, double latitude, double longitude){
+  this->height =height;
+  this->latitude = latitude;
+  this->longitude = longitude;
+}
+
+void Flight::infoCord(){
+  cout << "------------------------------------------" << endl;
+  cout << " Flight " << this->flightCode << " report :"<< endl;
+  cout << "- height :" << this->height << endl;
+  cout << "- latitude :" << this->latitude << endl;
+  cout << "- longitude :" << this->longitude << endl;
+  cout << "------------------------------------------" << endl;
 }

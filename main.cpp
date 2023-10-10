@@ -10,6 +10,8 @@
 #include <string>
 #include <vector>
 #include <cstdio>
+#include <stdexcept>
+#include <limits>
 
 #include "aircraft.h"
 #include "plane.h"
@@ -113,6 +115,7 @@ void menuPrincipal(){
 	std::cout << "Escriba -1 para salir, 0 para comprar vuelo, 1 para entrar al modo manager." << std::endl;
 	int command = requestRange( 2, true );
 	while ( command != -1 ){
+		system("cls");
 		switch( command ) {
 		case 0:
 			menuCompra();
@@ -121,6 +124,7 @@ void menuPrincipal(){
 			menuManager();
 			break;
 		}
+		system("cls");
 		std::cout << "Escriba -1 para salir, 0 para comprar vuelo, 1 para entrar al modo manager." << std::endl;
 		command = requestRange( 2, true );
 	}
@@ -128,9 +132,11 @@ void menuPrincipal(){
 
 void menuManager(){
 	Aircraft *aircraft;
+	std::cout << "Welcome to the Manager Menu" << std::endl;
 	std::cout << "Escriba [-1] para salir, [0] para crear vuelo, [1] para crear aeronaves, [2] para hacer operaciones sobre vuelos, [3] para hacer operaciones sobre aeronaves, [4] para hacer operaciones sobre puertas de abordaje, [5] para crear tripulantes" << std::endl;
 	int comand = requestRange( 6, true );
 	while ( comand != -1 ){
+		system("cls");
 		switch ( comand ){
 		case 0:
 			try{
@@ -156,12 +162,15 @@ void menuManager(){
 			crewCreator();
 			break;
 		}
+		system("cls");
+		std::cout << "Welcome to the Manager Menu" << std::endl;
 		std::cout << "Escriba [-1] para salir, [0] para crear vuelo, [1] para crear aeronaves, [2] para hacer operaciones sobre vuelos, [3] para hacer operaciones sobre aeronaves, [4] para hacer operaciones sobre puertas de abordaje, [5] para crear tripulantes" << std::endl;
 		comand = requestRange( 6, true );
 	}
 }
 
 void flightMenu(){
+	std::cout << "Welcome to the flight Menu" << std::endl;
 	std::cout << "Escriba 'exit' para salir, 'info', 'activate' <int>, 'end' <int>, 'land' <int>, 'takeOff' <int>, 'sendPosition' <int>" << std::endl;
 	std::string comand;
 	std::cin >> comand;
@@ -195,6 +204,7 @@ void flightMenu(){
 		} else {
 			std::cout << "Error: the command \"" << comand << "\" wasn't understood." << std::endl;
 		}
+		std::cout << "Welcome to the flight Menu" << std::endl;
 		std::cout << "Escriba 'exit' para salir, 'info', 'activate' <int>, 'end' <int>, 'land' <int>, 'takeOff' <int>, 'sendPosition' <int>." << std::endl;
 		std::cin >> comand;
 	}
@@ -465,9 +475,19 @@ int requestRange( int range, bool negative ){
 		return -1;
 	}
 	int res;
+	bool validInput = false;
 	do {
 		std::cout << "> ";
-		scanf ( "%d", &res );
-	} while ( ( ( !negative || res != -1 ) && res < 0 ) || res >= range  );
+		try{
+			if(scanf ( "%d", &res ) != 1 ){
+				throw std::runtime_error("Input is not Integer");
+			}
+			validInput = true;
+		}catch(const std::runtime_error& e){
+			std:: cerr << "Error:" << e.what() << std::endl;
+			std::cin.clear();
+			std::cin.ignore(numeric_limits<streamsize>::max(),'\n');
+		}	
+	} while (!validInput || ( ( !negative || res != -1 ) && res < 0 ) || res >= range  );
 	return res;
 }

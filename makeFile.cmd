@@ -19,4 +19,5 @@ g++ -c buyingManager.cpp
 
 
 g++ aircraft.o plane.o jet.o helicopter.o person.o crew.o passenger.o controlTower.o flight.o message.o aircraftFactory.o helicopterFactory.o planeFactory.o jetFactory.o boardingGate.o gateControl.o buyingManager.o main.cpp -o airport
+.\eraseO.cmd
 echo on
