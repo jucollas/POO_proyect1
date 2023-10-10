@@ -25,6 +25,7 @@ public:
 	std::vector<std::string> filterAndPrintFlight( const std::string &, const std::string &, const std::string & );
 
 	void addFlight( Flight * );
+	void delFlight( const std::string & );
 
 	void info();
 };

@@ -38,7 +38,9 @@ std::vector<std::string> BuyingManager::filterAndPrintFlight( const std::string 
 void BuyingManager::addFlight( Flight *flight ){
 	this->scheduledFlights.insert( std::pair<std::string,Flight*>( flight->getFlightCode(), flight ) );
 }
-
+void BuyingManager::delFlight( const std::string &f ){
+	this->scheduledFlights.erase( f );
+}
 void BuyingManager::info(){
 	std::cout << "There are %d scheduled flights." << std::endl;
 	for ( std::map<std::string,Flight*>::iterator it = this->scheduledFlights.begin() ; it != this->scheduledFlights.end() ; ++it ){
