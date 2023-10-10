@@ -53,3 +53,8 @@ Para compilar el proyecto, abre una terminal en el directorio raíz y ejecuta el
 cmd:
 .\makeFile.cmd
 .\airport.exe
+
+## Manual
+
+1. Complia y ejecuta desde la terminal segun las indicaciones anteriores.
+2. Se deplagara un intefaz de usario con menus y comandos que permiten la adminstracion completa del arepuerto modelado, como dichos menus y comandos se encuentran correctamente explicados dentro del programa asi qeu no hace falta explicarlos aqui
